@@ -44,7 +44,7 @@ use constant ZONE => 'ZONE';
 @EXPORT = qw(ZONE);
 
 use vars qw($VERSION $AUTOLOAD);
-$VERSION = "1.1.0";
+$VERSION = "1.1.1";
 
 use Carp;
 

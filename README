@@ -2,6 +2,12 @@ Weather::UGC is a module for parsing Universal Generic Code (UGC) lines
 in National Weather Service (NWS) products.
 
 The current version does minimal validation of zone names only: it does
-not check if the state or the zone in a particular state is valid.
+not check if the state or the zone in a particular state is valid, nor
+does it check if the expiration field refers to a valid day of the month
+or time.
+
+Required Modules:
+	Carp
+
 
 

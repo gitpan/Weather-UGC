@@ -14,3 +14,5 @@ Revision history for Perl extension Weather::UGC.
         - added README to distribution
         - improved documentation (slightly)
 
+1.1.1  Sat Jul 31 14:02:14 1999  
+        - added a few simple tests to the `test.pl' script
