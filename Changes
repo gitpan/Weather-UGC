@@ -1,0 +1,9 @@
+Revision history for Perl extension Weather::UGC.
+
+1.0.1  Sat Jul 24 14:19:09 1999
+        - original version
+
+1.0.5  Sun Jul 25 16:05:55 1999
+        - initialized Weather::UGC cannot be assigned another UGC
+        - fixed a really stupid bug by confusing $self{NAME} w/ $self->{NAME}
+        - added stub AUTOLOAD method with access to UGC property
