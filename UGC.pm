@@ -4,11 +4,14 @@ require Exporter;
 
 =head1 NAME
 
-Weather::UGC - routines for parsing WMO UGC lines
+Weather::UGC - routines for parsing Universal Generic Code (UGC) lines
 
 =head1 DESCRIPTION
 
-Weather::UGC is an object for parsing UGC lines in WMO weather products.
+Weather::UGC is a module for parsing Universal Generic Code (UGC) lines
+in National Weather Service (NWS) products.
+
+For more information, see http://iwin.nws.noaa.gov/emwin/winugc.htm
 
 =head1 EXAMPLE
 
@@ -24,7 +27,9 @@ Weather::UGC is an object for parsing UGC lines in WMO weather products.
 
     print $ugc->UGC, " refers to the following zones:\n";
     foreach ($ugc->zones) {
-        print $_, "\n";
+        print $_, (
+         (Weather::UGC::valid ZONE, $_) ? "\n" : " (invalid zone name\?)\n"
+        );
     }
 
 =head1 AUTHOR
@@ -33,12 +38,13 @@ Robert Rothenberg <wlkngowl@unix.asb.com>
 
 =cut
 
+use constant ZONE => 'ZONE';
+
 @ISA = qw(Exporter);
-@EXPORT = qw();
-@EXPORT_OK = qw(new expires zones valid);
+@EXPORT = qw(ZONE);
 
 use vars qw($VERSION $AUTOLOAD);
-$VERSION = "1.0.5";
+$VERSION = "1.1.0";
 
 use Carp;
 
@@ -77,10 +83,11 @@ sub import {
 
 sub valid {
     my $arg = shift;
-    if ($arg =~ m/^([A-Z]{3}\d{3}([\-\>]\d{3}){0,}\-?){1,}\-\d{6}\-/) {
-        return 1;
+    if ($arg ne "ZONE") {
+        return ($arg =~ m/^([A-Z]{2}[CZ]\d{3}([\-\>]\d{3}){0,}\-?){1,}\-\d{6}\-$/);
     } else {
-        return 0;
+        # To-do: actually validate USPS State or FIPS County codes?
+        return (shift =~ m/^[A-Z]{2}[CZ]\d{3}$/);
     }
 }
 
